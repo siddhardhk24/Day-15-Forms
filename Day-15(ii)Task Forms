@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation with Form</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        body{
+
+            background-color: lightgrey;
+        }
+
+        .main{
+           
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .left
+        {
+            margin-top: 5%;
+            width: 45%;
+            height: 90vh;
+            margin-left: 3%;
+            background-color: darkgrey;
+            border-radius: 10px;
+        }
+
+        .right
+        {
+            margin-top: 5%;
+            width: 45%;
+            height: 90vh;
+            margin-right: 3%;
+            background-color: darkgrey;
+            border-radius: 10px;
+        }
+
+        .text{
+
+            width: 400px;
+            height: 30px;
+            border-radius: 10px;
+        }
+        .text1{
+
+            width: 100px;
+            height: 20px;
+            border-radius: 10px;
+            }
+
+        form{
+
+            margin-left: 3%;
+            padding-top: 20px;
+        }
+        .t{
+
+            font-size: large;
+            font-weight: bold;
+            
+        }
+
+        #address{
+
+            width: 450px;
+            height:40px;
+            border-radius: 20px;
+        }
+        button{
+            border: 0;
+            height: 40px;
+            width: 100px;
+            background-color: steelblue;
+            margin-left: 1%;
+            border-radius: 5px;
+
+        }
+        #table1{
+            margin-top: 5%;
+            border: 3px solid black;
+            
+            
+            
+        }
+        th{
+            border: 1px solid black;
+            padding: 10px
+        }
+
+        td{
+            border: 1px solid black;
+            padding: 10px
+        } 
+
+    </style>
+</head>
+<body>
+        <h1 id= "title">DOM Form Manupulation</h1>
+        <p id = "descriptiom">Here we get data using form and store that data in a table</p>
+        <div class = "main">
+            <div class = left>
+            <form id ="form">
+                <label for class="t">First Name: <br></label><input type = "text" class ="text" id="first-name" placeholder="First Name"> <br><br>
+                <label for class="t">Last Name: <br></label><input type = "text" class ="text" id="last-name" placeholder="Last Name"><br><br>
+                <label for class="t">Address: <br><textarea id="address" placeholder="Address"></textarea><br><br>
+                <label for class="t">Pincode: <br></label><input type = "text" maxlength=6 class ="text1" id="pincode" placeholder="Pincode"> <br><br>
+                <label for class="t">Gender: <br></label>
+                <label for class="t">Male:  <input type = "radio" id ="r1" name ="radio" value="male"/>
+                    <label for class="t">Female:  <input type = "radio" id ="r2" name ="radio" value="female"/>
+                        <label for class="t">Other:  <input type = "radio" id ="r3" name ="radio" value="other"/><br><br>              
+                <label for class="t">State: <br></label><input type = "text" class ="text" id="state" placeholder="state"> <br><br>
+                <label for class="t">Country: <br></label><input type = "text" class ="text" id="country" placeholder="country"><br>
+            </form>
+            <form id="itemForm"><label for class= "t">Choice of Food: <br></label>
+                <label for class= "t">Vada: </label><input type="checkbox" name="cb" id="cb1" value="vada"><br>
+                <label for class= "t">Idly: </label><input type="checkbox" name="cb" id="cb2" value ="idly"><br>
+                <label for class= "t">Dosai: </label><input type="checkbox" name="cb" id="cb3" value ="dosai"><br>
+                <label for class= "t">Biriyani: </label><input type="checkbox" name="cb" id="cb4" value="biriyani"><br>
+                <label for class= "t">Pongal: </label><input type="checkbox" name="cb" id="cb5" value="pongal"><br><br>
+            </form> 
+             <button id="submit" type="button">Submit</button>
+            
+            </div>
+            <div class = right>
+                <table id="table1">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Address</th>
+                        <th>Pincode</th>
+                        <th>Gender</th>
+                        <th>Choice of Food</th>
+                        <th>State</th>
+                        <th>Country</th>
+                    </tr>
+
+                </table>
+
+            </div>
+  
+        </div>
+
+        
+        <script src="https://app.zenclass.in/sheets/v1/js/zen/suite/bundle.js"></script>
+
+        <script>
+            var itemForm = document.getElementById('itemForm'); // getting the parent container of all the checkbox inputs
+            // console.log(itemForm);
+            var checkBoxes = itemForm.querySelectorAll('input[type="checkbox"]'); // get all the check box
+            console.log(checkBoxes);
+            document.getElementById('submit').addEventListener('click', getData); //add a click event to the save button
+    
+            var selectedItems = [];
+    
+            function getData() { // this function will get called when the save button is clicked
+                checkBoxes.forEach(item => { // loop all the checkbox item
+                    if (item.checked) {  //if the check box is checked
+                        selectedItems.push(item);
+                    }
+                });
+                if (selectedItems.length < 2) { // check the selectedItems array length is less than 2 the throw error
+                    alert("Minimum two colors you have to pick..");
+                }
+                else {
+                    alert("Successfully submitted..");
+                }
+            }
+
+            var actualcheck = "";
+            var row = 1;
+            var entry = document.getElementById('submit');
+            entry.addEventListener("click", displayDetails);
+
+            function displayDetails()
+            {
+                var fname = document.getElementById("first-name").value;
+                var lname = document.getElementById("last-name").value;
+                var addr = document.getElementById("address").value;
+                var pin = document.getElementById("pincode").value;
+                var state = document.getElementById("state").value;
+                var country = document.getElementById("country").value;
+               var gender = document.querySelector('input[name="radio"]:checked').value;
+               
+               var checkboxes = document.getElementsByName("cb");
+
+               for(var i=0;i< checkboxes.length; i++) {
+
+                if(checkboxes[i].checked == true)
+                {
+
+                    actualcheck = actualcheck + " " + checkboxes[i].value;
+
+                }
+
+            }
+
+
+               
+             
+
+            
+
+            var display = document.getElementById("table1");
+
+            var newrow = display.insertRow(row);
+
+            var cell1 = newrow.insertCell(0);
+            var cell2 = newrow.insertCell(1);
+            var cell3 = newrow.insertCell(2);
+            var cell4 = newrow.insertCell(3);
+            var cell5 = newrow.insertCell(4);
+            var cell6 = newrow.insertCell(5);
+            var cell7 = newrow.insertCell(6);
+            var cell8 = newrow.insertCell(7);
+
+
+            cell1.innerHTML = fname;
+            cell2.innerHTML = lname;
+            cell3.innerHTML = addr;
+            cell4.innerHTML = pin;
+            cell5.innerHTML = gender;
+            cell6.innerHTML = actualcheck;
+            cell7.innerHTML = state;
+            cell8.innerHTML = country;
+
+            row++
+
+            document.getElementById("form").reset();
+            document.getElementById("itemForm").reset();
+      }
+            
+        </script>
+</body>
+</html>
